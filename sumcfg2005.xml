@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<configure>
+	<porterstemmer type="lemmatiser" id="1"/>
+	<wordnetdidion type="lemmatiser" id="2"/>
+	<englemmatiser type="lemmatiser" id="3">
+		<param name="directory" value="nlpdata/lemmatiser"/>
+		<param name="indexlookupoption" value="false"/>
+		<param name="disableverbadjective" value="true"/>
+	</englemmatiser>
+	<medposttagger type="tagger" id="1">
+		<param name="directory" value="nlpdata/tagger"/>
+	</medposttagger>
+	<heppletagger type="tagger" id="2">
+		<param name="directory" value="nlpdata/tagger"/>
+	</heppletagger>
+	<basictokenextractor type="conceptextractor" id="1">
+		<param name="subconceptoption" value="false"/>
+		<param name="lemmatiser" type="lematiser" value="1"/>
+		<param name="notworddelimitor" value=".&amp;"/>
+		<param name="filteroption" value="true"/>
+		<param name="conceptfilter" type="conceptfilter" value="1"/>
+		<basicconceptfilter type="conceptfilter" id="1">
+			<param name="stoplistfile" value="nlpdata/exp/rijsbergen.stopword"/>
+		</basicconceptfilter>
+	</basictokenextractor>
+	<onlinesentenceindexer type="indexer" id="1">
+		<param name="conceptextractor" type="conceptextractor" value="1"/>
+		<param name="indexconceptentry" value="false"/>
+		<param name="indextitle" value="true"/>
+		<param name="indexabstract" value="true"/>
+		<param name="indexbody" value="true"/>
+		<param name="minsentencelength" value="9"/>
+	</onlinesentenceindexer>
+	<lexranksummarizer type="genericmultidocsummarizer" id="1">
+		<param name="onlinesentenceindexer" type="indexer" value="1"/>
+		<param name="tfidf" value="true"/>
+		<param name="continuousscore" value="false"/>
+		<param name="similaritythreshold" value="0.1"/>
+	</lexranksummarizer>
+	<ducsummarizaitonevaapp type="summarizationevaapp" id="1">
+		<param name="summarizer" type="genericmultidocsummarizer" value="1"/>
+		<param name="outputfolder" value="/home/graveendran/workspace/StanfordNLPTest/Results"/>
+		<param name="modelsummaryfolder" value="/home/graveendran/Summarize/evasum/duc2004_2/models"/>
+		<param name="testdatafolder" value="/home/graveendran/workspace/StanfordNLPTest/LexRankFiles"/>
+		<param name="articleparser" value="dragon.onlinedb.trec.SgmArticleParser"/>
+		<param name="maxlength" value="1200"/>
+	</ducsummarizaitonevaapp>
+</configure>
